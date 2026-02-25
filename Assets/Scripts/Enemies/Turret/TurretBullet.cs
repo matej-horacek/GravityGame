@@ -42,7 +42,7 @@ public class TurretBullet : MonoBehaviour
         else if (collider.CompareTag("RWall") || collider.CompareTag("LWall") || collider.CompareTag("Floor") || collider.CompareTag("Roof") || collider.CompareTag("Back"))
         {
             hasHit = true;
-            Debug.Log("Hit a wall");
+            //Debug.Log("Hit a wall");
             Destroy(gameObject);
         }
         else

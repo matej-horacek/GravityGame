@@ -41,20 +41,20 @@ public class CameraSwitchScript : MonoBehaviour
     }
     protected void Switch_Performed(InputAction.CallbackContext obj)
     {
-        Debug.Log("Switch Performed call, " + activeCameraIndex + "index");
+        //Debug.Log("Switch Performed call, " + activeCameraIndex + "index");
         cameras[activeCameraIndex].Priority = 1;
         activeCameraIndex = (activeCameraIndex + 1) % cameras.Count;
         cameras[activeCameraIndex].Priority = 5;
         switch (activeCameraIndex)
         {
             case 0:
-                Debug.Log("First Person Camera Activated");
+                //Debug.Log("First Person Camera Activated");
                 firstPersonScript.enabled = true;
                 thirdPersonScript.enabled = false;
                 Cursor.lockState = CursorLockMode.Locked;
                 break;
             case 1:
-                Debug.Log("Third Person Camera Activated");
+                //Debug.Log("Third Person Camera Activated");
                 firstPersonScript.enabled = false;
                 thirdPersonScript.enabled = true;
                 Cursor.lockState = CursorLockMode.None;
