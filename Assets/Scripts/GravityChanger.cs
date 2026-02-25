@@ -68,11 +68,6 @@ public class GravitySwitch : MonoBehaviour
         }
 
         // Apply the rotation
-        if(cmBrain.ActiveVirtualCamera.Name == "FirstPersonCamera") 
-        {
-            Debug.Log("AAAAAAAAAAAAAAAAAAAA");
-            firstPersonCamera.rotation = rotationDelta * transform.rotation;
-        }
             
         transform.rotation = rotationDelta * transform.rotation;
 

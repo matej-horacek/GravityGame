@@ -1,26 +1,44 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 // 1. This tag forces this script to run AFTER Cinemachine! No more frame fighting.
-[DefaultExecutionOrder(100)]
 public class FirstPersonAim : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
+    public float sensitivity = 0.1f;
+    [SerializeField] Rigidbody rb;
+    private float pendingRotation = 0f;
 
-    private float turnSpeed = 1500f;
-
-    void LateUpdate()
+    void Start()
     {
-        // Get the direction the camera is looking
-        Vector3 camForward = cameraTransform.forward;
+        // Good practice to ensure physics don't knock your player over
+        rb.freezeRotation = true;
+    }
 
-        // Flatten that direction against the Player's current gravity
-        Vector3 flattenedForward = Vector3.ProjectOnPlane(camForward, transform.up).normalized;
+    void Update()
+    {
+        // 1. READ INPUT HERE
+        // Update runs every single rendered frame, so it catches every tiny mouse movement.
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-        if (flattenedForward.sqrMagnitude > 0.001f)
+        // Add the movement to our pending rotation
+        pendingRotation += mouseDelta.x * sensitivity;
+    }
+
+    void FixedUpdate()
+    {
+        // 2. APPLY ROTATION HERE
+        // FixedUpdate runs in sync with the physics engine.
+        if (pendingRotation != 0f)
         {
-            // Instant snap! No Slerp delay, meaning the camera can never clip into the body.
-            // The [DefaultExecutionOrder] at the top of the script prevents the stuttering.
-            transform.rotation = Quaternion.LookRotation(flattenedForward, transform.up);
+            // Calculate the new rotation
+            Quaternion deltaRotation = Quaternion.Euler(0f, pendingRotation, 0f);
+
+            // Use MoveRotation instead of transform.Rotate to play nice with physics
+            rb.MoveRotation(rb.rotation * deltaRotation);
+
+            // Reset to zero so we don't keep spinning!
+            pendingRotation = 0f;
         }
     }
 }
