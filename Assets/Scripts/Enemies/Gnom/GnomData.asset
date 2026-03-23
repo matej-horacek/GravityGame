@@ -16,6 +16,6 @@ MonoBehaviour:
   MaxHealth: 30
   Speed: 30
   Range: 40
-  ViewAngleSide: 30
+  ViewAngleSide: 45
   ViewAngleUp: 45
   RotationSpeed: 5

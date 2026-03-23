@@ -9,5 +9,6 @@ public class GnomScript : EnemyScript<EnemyData>
     protected override void Update()
     {
         base.Update();
+        
     }
 }
