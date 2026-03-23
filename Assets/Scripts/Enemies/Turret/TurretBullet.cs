@@ -32,8 +32,8 @@ public class TurretBullet : MonoBehaviour
             {
                 hasHit = true;
 
-                player.health -= damage * player.level;
-                Debug.Log("Player hit with hp left :" + player.health);
+                player.TakeDamage(damage);
+                Debug.Log("Player hit with hp left :" + player.Currenthealth);
 
                 Destroy(gameObject);
 

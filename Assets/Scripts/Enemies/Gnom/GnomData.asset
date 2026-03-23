@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   Name: Gnom
   MaxHealth: 30
+  Damage: 10
   Speed: 30
-  Range: 40
+  Range: 5
   ViewAngleSide: 45
   ViewAngleUp: 45
   RotationSpeed: 5

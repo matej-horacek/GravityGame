@@ -473,6 +473,7 @@ MonoBehaviour:
   EnemyStats: {fileID: 11400000, guid: 4366074657d7b1849996bb0a5f5fd91f, type: 2}
   CurrentHealth: 0
   Eyes: {fileID: 1448020645}
+  playerObject: {fileID: 4563715573157572692}
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1805,8 +1806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5620a28ca71b3840a33830a70ecd09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  maxhealth: 100
-  health: 100
+  MaxHealth: 100
+  Currenthealth: 0
   speed: 5
   power: 5
   level: 1
@@ -3056,8 +3057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5620a28ca71b3840a33830a70ecd09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  maxhealth: 100
-  health: 100
+  MaxHealth: 100
+  Currenthealth: 0
   speed: 5
   power: 5
   level: 1

@@ -3,30 +3,30 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public float maxhealth = 100f;
-    public float health = 100f;
+    public float MaxHealth = 100f;
+    public float Currenthealth = 100f;
     public float speed = 5f;
     public float power = 5f;
     public float level = 1f;
 
     [SerializeField] UIDocument uiDocument;
-    private ProgressBar healthbar;
+    private ProgressBar Currenthealthbar;
 
     void Awake()
     {
-        maxhealth = health;
+        Currenthealth = MaxHealth;
     }
     private void OnEnable()
     {
         if (uiDocument != null)
         {
-            healthbar = uiDocument.rootVisualElement.Q<ProgressBar>("HealthBar");
+            Currenthealthbar = uiDocument.rootVisualElement.Q<ProgressBar>("HealthBar");
 
-            if (healthbar != null)
+            if (Currenthealthbar != null)
             {
-                healthbar.style.display = DisplayStyle.Flex; 
-                healthbar.lowValue = 0f;
-                healthbar.highValue = 1f; 
+                Currenthealthbar.style.display = DisplayStyle.Flex; 
+                Currenthealthbar.lowValue = 0f;
+                Currenthealthbar.highValue = 1f; 
             }
         }
     }
@@ -34,20 +34,24 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateHealthUI();
-        if (health <= 0)
+        UpdateCurrenthealthUI();
+        if (Currenthealth <= 0)
         {
             Debug.Log("Player is dead.");
             Destroy(gameObject);
         }
     }
-    void UpdateHealthUI()
+    void UpdateCurrenthealthUI()
     {
-        if (healthbar != null)
+        if (Currenthealthbar != null)
         {
-            float healthPercent = health / maxhealth;
-            healthbar.value = healthPercent;
-            healthbar.title = $"{Mathf.Ceil(health)} / {maxhealth}";
+            float CurrenthealthPercent = Currenthealth / MaxHealth;
+            Currenthealthbar.value = CurrenthealthPercent;
+            Currenthealthbar.title = $"{Mathf.Ceil(Currenthealth)} / {MaxHealth}";
         }
+    }
+    public void TakeDamage(float damage) 
+    {
+        Currenthealth -= damage;
     }
 }

@@ -11,11 +11,11 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
     public float CurrentHealth;
     [SerializeField] Transform Eyes;
 
-    protected bool IsPlayerInView;
+    protected bool IsPlayerInView = false;
     protected Rigidbody rb;
 
-    protected Transform player;
-    protected GameObject playerObject;
+    [SerializeField] GameObject playerObject;
+    protected Player playerScript;
     [SerializeField] LayerMask playerLayer;
     public NavMeshAgent agent;
     private EnemyWander wanderComponent;
@@ -23,9 +23,8 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
 
     protected virtual void Awake()
     {
-        playerObject = GameObject.FindWithTag("Player");
+        playerScript = playerObject.GetComponent<Player>();
         wanderComponent = GetComponent<EnemyWander>();
-        player = GameObject.FindWithTag("Player").transform;
         rb = GetComponent<Rigidbody>();
         CurrentHealth = EnemyStats.MaxHealth;
         currentSpeed = EnemyStats.Speed;
@@ -36,7 +35,7 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
     protected virtual void Update()
     {
         FindPlayer();
-        if(transform.position.magnitude - player.position.magnitude < EnemyStats.Range) 
+        if(transform.position.magnitude - playerObject.transform.position.magnitude < EnemyStats.Range&& IsPlayerInView) 
         {
             Attack();
         }
@@ -48,15 +47,16 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
     public void FindPlayer() 
     {
 
-        Vector3 dirToPlayer = (player.position - Eyes.position).normalized;
-        float angleToPlayerSide = Vector3.SignedAngle((player.position - Eyes.position),transform.forward, transform.up);
-        float angleToPlayerUp = Vector3.SignedAngle((player.position - Eyes.position),transform.forward, transform.right);
+        Vector3 dirToPlayer = (playerObject.transform.position - Eyes.position).normalized;
+        float angleToPlayerSide = Vector3.SignedAngle((playerObject.transform.position - Eyes.position),transform.forward, transform.up);
+        float angleToPlayerUp = Vector3.SignedAngle((playerObject.transform.position - Eyes.position),transform.forward, transform.right);
 
         if(Mathf.Abs(angleToPlayerSide) <= EnemyStats.ViewAngleSide && Mathf.Abs(angleToPlayerUp) <= EnemyStats.ViewAngleUp) 
         {
                 if (wanderComponent != null)
                     wanderComponent.enabled = false;
-                agent.SetDestination(player.position);
+                agent.SetDestination(playerObject.transform.position);
+                IsPlayerInView = true;
                 Debug.Log("is in up Angle");
             
         }
@@ -69,7 +69,7 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
 
     protected void Attack() 
     {
-        playerObject.GetComponent<Player>().health = EnemyStats.Damage;
+        playerScript.TakeDamage(EnemyStats.Damage);
     }
 
 
@@ -80,6 +80,8 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, EnemyStats.Range);
         // Don't draw if EnemyStats hasn't been assigned yet to avoid errors in the editor
         if (EnemyStats == null) return;
 
@@ -117,11 +119,11 @@ public class EnemyScript<T> : MonoBehaviour where T : EnemyData
         Gizmos.DrawLine(bottomLeftEnd, topLeftEnd);     // Left edge
 
         // 3. (Optional) Draw a line connecting the enemy to the player for easy debugging
-        if (player != null)
+        if (playerObject != null)
         {
             // Turn the line red if the player is in view!
             Gizmos.color = IsPlayerInView ? Color.red : Color.blue;
-            Gizmos.DrawLine(origin, player.position);
+            Gizmos.DrawLine(origin, playerObject.transform.position);
         }
     }
 }
