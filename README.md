@@ -19,8 +19,8 @@ Hlavním konceptem je vytvořit střílečku kde se hráč a nepřátelé pohybu
 
 
 ## Shrnutí kódu
-Třída GravitySwitch
-Soubor: GravityChanger.cs
+* **Třída GravitySwitch**
+* **Soubor: GravityChanger.cs**
 Účel: Zajišťuje hlavní herní mechaniku – změnu vektoru gravitace na základě povrchu, na který hráč dopadne nebo do něj narazí.
 
 Klíčové proměnné:
@@ -38,8 +38,8 @@ GetPullDirection(Collision other): Vypočítá nový vektor gravitace na základ
 setRotation(Vector3 newPullDirection): Vypočítá rozdíl rotací (Quaternion.FromToRotation nebo manuální otočení pro 180 stupňů) a otočí hráče. Také hráče mírně odsune od starého povrchu, aby nepropadl mapou.
 
 
-Třída Movements
-Soubor: Movements.cs
+* **Třída Movements**
+* **Soubor: Movements.cs**
 Účel: Zpracovává pohyb a skákání hráče s využitím Unity Input Systemu a fyziky (Rigidbody).
 
 Klíčové proměnné:
@@ -61,8 +61,8 @@ FixedUpdate(): Aplikuje relativní sílu na Rigidbody hráče (ForceMode.Force) 
 Jump_performed(): Aplikuje okamžitou sílu (ForceMode.Impulse) směrem nahoru vzhledem k rotaci hráče pro skok.
 
 
-Třída Player
-Soubor: Player.cs
+* **Třída Player**
+* **Soubor: Player.cs**
 Účel: Spravuje statistiky hráče (zdraví, rychlost, poškození) a stará se o vizualizaci zdraví pomocí UI Toolkit.
 
 Klíčové proměnné:
@@ -84,8 +84,8 @@ UpdateCurrenthealthUI(): Přepočítává zdraví na procenta a aktualizuje text
 TakeDamage(float damage): Odečte příslušné poškození z aktuálního zdraví hráče.
 
 
-Třída EnemyScript<T>
-Soubor: EnemyScript.cs
+* **Třída EnemyScript<T>**
+* **Soubor: EnemyScript.cs**
 Účel: Generická základní třída pro nepřátele. Stará se o detekci hráče pomocí FOV (zorného pole), pronásledování pomocí NavMeshe a útočení. Předpokládá se použití datového kontejneru EnemyData.
 
 Klíčové proměnné:
@@ -109,8 +109,8 @@ Attack(): Zavolá metodu TakeDamage na skriptu hráče.
 OnDrawGizmos(): Pomocná metoda pro vývojáře. Vykresluje v editoru (v okně Scene) vizuální reprezentaci zorného pole nepřítele a barevně ukazuje, zda je hráč detekován.
 
 
-Třída CameraScript
-Soubor: CameraScript.cs
+* **Třída CameraScript**
+* **Soubor: CameraScript.cs**
 Účel: Skript pro jednoduchou kameru, která drží fixní pozici v osách X a Y, ale sleduje hráče v ose Z.
 
 Klíčové proměnné:
